@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>992</width>
+    <height>476</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Factorio Architect</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/main.png</normaloff>:/main.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QComboBox" name="selectPageWidget">
+          <item>
+           <property name="text">
+            <string>Mining</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/electric-mining-drill.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/electric-mining-drill.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Smelting</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/electric-furnace.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/electric-furnace.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Pumpjack</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/pumpjack.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/pumpjack.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Refinery</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/oil-refinery.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/oil-refinery.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Chemistry</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/chemical-plant.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/chemical-plant.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Assembling</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/assembling-machine-3.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/assembling-machine-3.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Rocketry</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/rocket-silo.png</normaloff>../build-Playground-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/icons/rocket-silo.png</iconset>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="ConfigStackWidget" name="configWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>310</width>
+            <height>400</height>
+           </size>
+          </property>
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QTableWidget" name="ordersTable">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>240</width>
+            <height>400</height>
+           </size>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::NoSelection</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerItem</enum>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>75</number>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Rate</string>
+           </property>
+           <property name="toolTip">
+            <string>The requested amount of items per second.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Shared</string>
+           </property>
+           <property name="toolTip">
+            <string>References to these items are combined.</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignLeading|AlignVCenter</set>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTreeWidget" name="resultTable">
+        <property name="minimumSize">
+         <size>
+          <width>400</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+        </property>
+        <property name="autoScroll">
+         <bool>true</bool>
+        </property>
+        <attribute name="headerDefaultSectionSize">
+         <number>75</number>
+        </attribute>
+        <attribute name="headerStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rate</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Count</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+   <zorder></zorder>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ConfigStackWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>configstackwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
