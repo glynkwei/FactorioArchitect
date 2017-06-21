@@ -53,7 +53,10 @@ InventorySearch::InventorySearch(json &dat,QWidget *parent) :
                              "basic-oil-processing"};
 
 
-
+    set<string> include = {"solid-fuel"};
+    for (string item : include)     {
+        itemNames.insert(item);
+    }
 
     for (json::iterator it = recipe.begin(); it != recipe.end(); ++it)     {
         string key = it.key();
@@ -102,12 +105,14 @@ void InventorySearch::loadAssets(string key)  {
         icon->setProperty("item-name",QString::fromStdString(name));
         string file_path = ":/icons/"+name;
         _setIconForLabel(file_path, icon);
+        icon->setToolTip(QString::fromStdString(name));
         i++;
     }
     int total_cells = ui->inventoryTable->rowCount()*ui->inventoryTable->columnCount();
     for (int j = i; j < total_cells; j++)   {
         auto icon = static_cast<QLabel*>(ui->inventoryTable->cellWidget(j/width,j%width));
         icon->setPixmap(QPixmap());
+        icon->setToolTip("");
     }
    ui->inventoryTable->scrollToTop();
 }

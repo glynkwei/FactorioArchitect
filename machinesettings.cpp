@@ -32,6 +32,10 @@ MachineSettings::MachineSettings(QWidget *parent, int _type) :
             typeGroupLayout->addWidget(typeSelector[i]);
         }
     }
+    for (int i = 0; i < type; i++)   {
+        QObject::connect(typeSelector[i], SIGNAL(toggled(bool)),
+                         this, SLOT(radioChanged(bool)));
+    }
     selectorBox->setLayout(typeGroupLayout);
     selectorBox->setFixedHeight(50);
     //2x2 grid, column is Intermediate/Final
@@ -94,12 +98,10 @@ MachineSettings::MachineSettings(QWidget *parent, int _type) :
 void MachineSettings::lineTextEdited(QString)   {
     emit dataChanged();
 }
-void MachineSettings::radioChanged()  {
+void MachineSettings::radioChanged(bool)  {
     emit dataChanged();
 }
-void MachineSettings::checkChanged()     {
-    emit dataChanged();
-}
+
 
 void MachineSettings:: setBonuses(double intProd, double intSpd, double defProd, double defSpd) {
     static_cast<QLineEdit*>(speedConfigTable->cellWidget(0,0))->setText(QString::number(intProd));
@@ -114,7 +116,6 @@ machine_config MachineSettings::getMachineConfig()  {
  c.default_boosts.effectivity = static_cast<QLineEdit*>(speedConfigTable->cellWidget(0,1))->text().toDouble();
  c.default_boosts.effectivity = static_cast<QLineEdit*>(speedConfigTable->cellWidget(1,1))->text().toDouble();
  c.type = typeSelectorGroup->checkedId();
-
  return c;
 }
 
@@ -136,6 +137,47 @@ MachineSettings(parent,2)
     setIconForType(tr(":/icons/electric-mining-drill"),1);
     typeSelector[1]->setChecked(true);
 }
+machine_config MiningSettings::getMachineConfig()  {
+    auto config = MachineSettings::getMachineConfig();
+    config.base_speed = config.type;
+    return config;
+}
+machine_config SmeltingSettings::getMachineConfig()  {
+    auto config = MachineSettings::getMachineConfig();
+    switch (config.type)    {
+        case 0:
+            config.base_speed = 1;
+            break;
+        case 1:
+        case 2:
+            config.base_speed = 2;
+        break;
+    }
+    return config;
+}
+machine_config ChemistrySettings::getMachineConfig()  {
+    auto config = MachineSettings::getMachineConfig();
+    switch (config.type)
+        case 0:
+            config.base_speed = 1.25;
+    return config;
+}
+machine_config AssemblingSettings::getMachineConfig()  {
+    auto config = MachineSettings::getMachineConfig();
+    switch (config.type)    {
+    case 0:
+        config.base_speed = 0.5;
+        break;
+    case 1:
+        config.base_speed = 0.75;
+        break;
+    case 2:
+        config.base_speed = 1.25;
+        break;
+    }
+    return config;
+}
+
 SmeltingSettings::SmeltingSettings(QWidget *parent):
 MachineSettings(parent,3)
 {
@@ -176,16 +218,19 @@ MachineSettings(parent,1)
     setIconForType(tr(":/icons/oil-refinery"),0);
     for (int i = 0; i < 3; i++)     {
         processes.push_back(new QRadioButton);
-        QObject::connect(processes[i], SIGNAL(pressed()),
-                         this, SLOT(radioChanged()));
+        QObject::connect(processes[i], SIGNAL(toggled(bool)),
+                         this, SLOT(radioChanged(bool)));
         processes[i]->setMinimumWidth(50);
         processSelectorGroup->addButton(processes[i],i);
         layout->insertWidget(i,processes[i]);
 
     }
     processes[0]->setIcon(QIcon(":/icons/basic-oil-processing"));
+    processes[0]->setToolTip("basic oil processing");
     processes[1]->setIcon(QIcon(":/icons/advanced-oil-processing"));
+    processes[1]->setToolTip("Advanced oil processing");
     processes[2]->setIcon(QIcon(":/icons/coal-liquefaction"));
+    processes[2]->setToolTip("Coal liquefaction");
     processes[1]->setChecked(true);
 
     processSelector->setLayout(layout);
@@ -193,7 +238,7 @@ MachineSettings(parent,1)
     scene->addWidget(processSelector,0,1,1,3);
 
     crackBox = new QCheckBox;
-    QObject::connect(crackBox, SIGNAL(pressed()), this, SLOT(checkChanged()));
+    QObject::connect(crackBox, SIGNAL(toggled(bool)), this, SLOT(radioChanged(bool)));
     crackBox->setToolTip(tr("Enable cracking whenever possible. If this is disabled, there may be excessive fluid byproducts."));
     crackBox->setIcon(QIcon(":/icons/light-oil-cracking-to-petroleum-gas"));
     crackBox->setChecked(true);
@@ -213,8 +258,8 @@ MachineSettings(parent,1)
     for (int i = 0; i < 3; i++)     {
         fuels.push_back(new QRadioButton);
         fuels[i]->setMinimumWidth(50);
-        QObject::connect(fuels[i], SIGNAL(pressed()),
-                         this, SLOT(radioChanged()));
+        QObject::connect(fuels[i], SIGNAL(toggled(bool)),
+                         this, SLOT(radioChanged(bool)));
         fuelSelectorGroup->addButton(fuels[i],i);
         layout->insertWidget(i,fuels[i]);
 

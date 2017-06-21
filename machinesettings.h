@@ -29,13 +29,12 @@ public:
     ~MachineSettings();
     void setIconForType(QString path, int i);
     void setBonuses(double intProd = 0, double intSpd = 0, double defProd = 0, double defSpd = 0);
-    machine_config getMachineConfig();
+    virtual machine_config getMachineConfig();
 signals:
     void dataChanged();
 private slots:
     void lineTextEdited(QString);
-    void radioChanged();
-    void checkChanged();
+    void radioChanged(bool);
 private:
     Ui::MachineSettings *ui;
 
@@ -47,6 +46,7 @@ class MiningSettings : public MachineSettings
 
 public:
     explicit MiningSettings(QWidget* parent = 0);
+    virtual machine_config getMachineConfig() override;
 private:
 };
 class SmeltingSettings : public MachineSettings
@@ -54,6 +54,8 @@ class SmeltingSettings : public MachineSettings
     Q_OBJECT
 public:
     explicit SmeltingSettings(QWidget* parent = 0);
+
+    virtual machine_config getMachineConfig() override;
 };
 class PumpjackSettings : public MachineSettings
 {
@@ -84,6 +86,7 @@ public:
     std::vector<QRadioButton*>fuels;
     QButtonGroup* fuelSelectorGroup;
     explicit ChemistrySettings(QWidget* parent = 0);
+    virtual machine_config getMachineConfig() override;
 private:
 
 };
@@ -92,6 +95,7 @@ class AssemblingSettings : public MachineSettings
     Q_OBJECT
 public:
     explicit AssemblingSettings(QWidget* parent = 0);
+    virtual machine_config getMachineConfig() override;
 };
 class RocketrySettings: public MachineSettings
 {

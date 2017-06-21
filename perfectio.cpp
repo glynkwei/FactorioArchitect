@@ -152,7 +152,7 @@ void factory::h_plan(std::string item_name, name_result_table &root_planner, dou
         planner[item_name].product = rate;
         planner[item_name].count = -1;
 		return;
-	}
+    }
 	else if (item_name == "petroleum-gas") {
 		double s = 1 + config.chemical_config.intermediate_products_boost.effectivity / 100;
 		double c = config.chemical_config.base_speed;

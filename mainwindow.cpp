@@ -21,6 +21,7 @@ void insertIntoTableWidget(QTableWidget* table, MainWindow* w)   {
     int total_rows = table->rowCount();
     table->insertRow(total_rows);
     auto checkbox = new QCheckBox(table);
+    checkbox->setChecked(true);
     checkbox->setStyleSheet("margin-left:25%; margin-right:25%;");
     QObject::connect(checkbox, SIGNAL(stateChanged(int)), w, SLOT(checkbox_stateChanged(int)));
 
@@ -265,20 +266,20 @@ void MainWindow::loadResultTable()  {
         }
     }
     production_config config;
-    config.mining_config = static_cast<MachineSettings*>(ui->configWidget->widget(0))->getMachineConfig();
+    config.mining_config = static_cast<MiningSettings*>(ui->configWidget->widget(0))->getMachineConfig();
 
-    config.smelting_config = static_cast<MachineSettings*>(ui->configWidget->widget(1))->getMachineConfig();
+    config.smelting_config = static_cast<SmeltingSettings*>(ui->configWidget->widget(1))->getMachineConfig();
 
-    config.pumpjack_config = static_cast<MachineSettings*>(ui->configWidget->widget(2))->getMachineConfig();
+    config.pumpjack_config = static_cast<PumpjackSettings*>(ui->configWidget->widget(2))->getMachineConfig();
     config.oil_extraction_rate = static_cast<PumpjackSettings*>(ui->configWidget->widget(2))->oilRate->text().toDouble();
-    config.refinery_config = static_cast<MachineSettings*>(ui->configWidget->widget(3))->getMachineConfig();
+    config.refinery_config = static_cast<RefinerySettings*>(ui->configWidget->widget(3))->getMachineConfig();
     config.crack_when_possible = static_cast<RefinerySettings*>(ui->configWidget->widget(3))->crackBox->checkState();
     config.ref_type = (refinery_type)static_cast<RefinerySettings*>(ui->configWidget->widget(3))->processSelectorGroup->checkedId();
-    config.chemical_config = static_cast<MachineSettings*>(ui->configWidget->widget(4))->getMachineConfig();
+    config.chemical_config = static_cast<ChemistrySettings*>(ui->configWidget->widget(4))->getMachineConfig();
     config.fuel_type = (solid_fuel_type)static_cast<ChemistrySettings*>(ui->configWidget->widget(4))->fuelSelectorGroup->checkedId();
-    config.assembling_config = static_cast<MachineSettings*>(ui->configWidget->widget(5))->getMachineConfig();
+    config.assembling_config = static_cast<AssemblingSettings*>(ui->configWidget->widget(5))->getMachineConfig();
 
-    config.rocket_config = static_cast<MachineSettings*>(ui->configWidget->widget(6))->getMachineConfig();
+    config.rocket_config = static_cast<RocketrySettings*>(ui->configWidget->widget(6))->getMachineConfig();
 
 
     factory fy(config,data,planners_to_share);
@@ -308,6 +309,8 @@ void MainWindow::loadResultTable()  {
             recipe->setIcon(0,QIcon(QString::fromStdString(file_path)));
             recipe->setSizeHint(0, {32,32});
             recipe->setToolTip(0,QString::fromStdString(entry.first));
+            recipe->setToolTip(1,QString::fromStdString(entry.first));
+            recipe->setToolTip(2,QString::fromStdString(entry.first));
             recipe->setText(1, QString::number(entry.second.product, 'f',3));
             if (entry.second.count != -1)   {
                 if (entry.second.type == "mining")  {
@@ -380,6 +383,8 @@ void MainWindow::loadResultTable()  {
         recipe->setIcon(0,QIcon(QString::fromStdString(file_path)));
         recipe->setSizeHint(0, {32,32});
         recipe->setToolTip(0,QString::fromStdString(entry.first));
+        recipe->setToolTip(1,QString::fromStdString(entry.first));
+        recipe->setToolTip(2,QString::fromStdString(entry.first));
         recipe->setText(1, QString::number(entry.second.product,'f',3));
         if (entry.second.count != -1)   {
             if (entry.second.type == "mining")  {
@@ -442,6 +447,7 @@ void MainWindow::loadResultTable()  {
         }
     }
     ui->resultTable->expandAll();
+    ui->resultTable->repaint();
 }
 
 void MainWindow::on_selectPageWidget_activated(const QString &arg1)
