@@ -154,6 +154,7 @@ void factory::h_plan(std::string item_name, name_result_table &root_planner, dou
 		return;
     }
 	else if (item_name == "petroleum-gas") {
+
 		double s = 1 + config.chemical_config.intermediate_products_boost.effectivity / 100;
 		double c = config.chemical_config.base_speed;
 		double t = c*(1 + config.chemical_config.intermediate_products_boost.speed / 100);
@@ -412,7 +413,55 @@ void factory::h_plan(std::string item_name, name_result_table &root_planner, dou
 		}
 	}
     string type;
-	if (item.find("category") != item.end()) {
+
+    auto _item = data.at("recipe").at(effective_name);
+    if (_item.find("category") != _item.end()) {
+        if (_item["category"] == "chemistry") {
+            //chemistry
+            type = "chemistry";
+            if (use_productivity) {
+                item_boost = config.chemical_config.intermediate_products_boost;
+            }
+            else {
+                item_boost = config.assembling_config.default_boosts;
+            }
+            base = config.assembling_config.base_speed;
+        }
+        else if (_item["category"] == "smelting") {
+            //smelting
+            type = "smelting";
+            if (use_productivity) {
+                item_boost = config.smelting_config.intermediate_products_boost;
+            }
+            else {
+                item_boost = config.smelting_config.default_boosts;
+            }
+            base = config.smelting_config.base_speed;
+        }
+        else if (_item["category"] == "rocket-building") {
+            //rocket-building
+            type = "rocketry";
+            if (use_productivity) {
+                item_boost = config.rocket_config.intermediate_products_boost;
+            }
+            else {
+                item_boost = config.rocket_config.default_boosts;
+            }
+            base = config.rocket_config.base_speed;
+        }
+        else {
+            //assembling
+            type = "assembling";
+            if (use_productivity) {
+                item_boost = config.assembling_config.intermediate_products_boost;
+            }
+            else {
+                item_boost = config.assembling_config.default_boosts;
+            }
+            base = config.assembling_config.base_speed;
+        }
+    }
+    else if (item.find("category") != item.end()) {
 		if (item["category"] == "chemistry") {
 			//chemistry
             type = "chemistry";
